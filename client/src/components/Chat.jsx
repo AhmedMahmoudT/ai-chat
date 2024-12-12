@@ -11,7 +11,7 @@ const Chat = () => {
       checked: false
     },
     {
-      name: 'Llama 3.3',
+      name: 'Llama 3.2 Vision',
       logo: '/images/models/llama.png',
       checked: false
     },
@@ -36,7 +36,7 @@ const Chat = () => {
           ))}
         </div>
         </div>
-        <Input />
+        <Input models={models} />
     </div>
   )
 }
