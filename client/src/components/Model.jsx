@@ -3,7 +3,6 @@
 const Model = ({ model, models, setModels }) => {
   
     const handleCheck = () => {
-        // it should unchecke if any other model is checked
         models.forEach((model) => {
             if (model.checked) {
                 model.checked = false;

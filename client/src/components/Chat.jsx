@@ -1,43 +1,11 @@
-import { useState } from "react"
-import Input from "./Input"
-import Model from "./Model"
+import { motion } from "motion/react";
 
-    
-const Chat = () => {
-  const [models, setModels] = useState([
-    {
-      name: 'Qwen',
-      logo: '/images/models/qwen.png',
-      checked: false
-    },
-    {
-      name: 'Llama 3.2 Vision',
-      logo: '/images/models/llama.png',
-      checked: false
-    },
-    {
-      name: 'Gemma 2.2',
-      logo: '/images/models/gemma.png',
-      checked: false
-    },
-    {
-      name: 'Mistral',
-      logo: '/images/models/mistral.png',
-      checked: false
-    }
-  ])
+// eslint-disable-next-line react/prop-types
+const Chat = ({chatBegan}) => {
   return (
-    <div className="w-[100%] h-[100%] flex flex-col items-center justify-center relative gap-4">
-        <div className="w-[50%]">
-        <h1 className="font-semibold text-5xl mb-10">Choose an AI model</h1>
-        <div className="flex items-center justify center gap-4">
-          {models.map((model) => (
-            <Model key={model.name} model={model} models={models} setModels={setModels} />
-          ))}
-        </div>
-        </div>
-        <Input models={models} />
-    </div>
+    <motion.div initial={{opacity:0,height:'0vh'}} animate={ chatBegan?{opacity:1,height:'60vh'}:{opacity:0,height:'0vh'}} transition={{ duration: 0.5 }}>
+        Chat
+    </motion.div>
   )
 }
 
