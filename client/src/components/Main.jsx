@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "./Input";
 import Chat from "./Chat";
-import ModelChoice from "./ModelChoice";
+import ModelChoice, { ModelChoiceMini } from "./ModelChoice";
 import { AnimatePresence } from "motion/react";
 
 const Main = () => {
@@ -35,14 +35,15 @@ const Main = () => {
   ]);
   return (
     <div className="w-[50%] h-[100%] m-auto flex flex-col items-center justify-center relative gap-4">
-        <AnimatePresence>
-        {!chatBegan?
-        <ModelChoice models={models} setModels={setModels} />
-        : <></>
-        }
-        </AnimatePresence>
+      <AnimatePresence>
+        {!chatBegan ? (
+          <ModelChoice models={models} setModels={setModels} />
+        ) : (
+          <ModelChoiceMini models={models} setModels={setModels} />
+        )}
+      </AnimatePresence>
 
-        <Chat chatBegan={chatBegan} />
+      <Chat chatBegan={chatBegan} />
       <Input
         models={models}
         chatBegan={chatBegan}
