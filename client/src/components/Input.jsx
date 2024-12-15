@@ -24,13 +24,14 @@ const Input = ({ models, chatBegan, setChatBegan }) => {
   const handleSubmit = () => {
     !chatBegan && setChatBegan(true);
     setInputValue("");
-    adjustTextareaHeight();
+    const textarea = textareaRef.current;
+    textarea.style.height = "32px";
   };
 
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = "auto";
+      textarea.style.height = "32px";
       textarea.style.height = `${Math.min(
         Math.max(textarea.scrollHeight, 32),
         200
