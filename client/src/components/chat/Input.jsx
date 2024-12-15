@@ -42,7 +42,7 @@ const Input = ({ models, chatBegan, setChatBegan }) => {
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className="w-[100%] py-2 h-max bg-indigo-100 rounded-lg px-4 flex flex-col items-center justify-center gap-2 border-2 absolute bottom-12"
+      className="w-[62.5%] py-2 h-max bg-indigo-100 rounded-lg px-4 flex flex-col items-center justify-center gap-2 border-2 absolute bottom-12"
       initial={{
         border: ["2px solid #4f46e5", "2px solid #e0e7ff", "2px solid #4f46e5"],
         transition: { repeat: Infinity, duration: 1 },

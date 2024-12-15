@@ -13,7 +13,7 @@ const Chat = ({ chatBegan }) => {
           : { opacity: 0, height: "0px" }
       }
       transition={{ duration: 0.5 }}
-      className="w-full overflow-scroll flex flex-col gap-2 py-4"
+      className="w-[62.5%] overflow-scroll flex flex-col gap-2 py-4"
     >
       <Prompt />
       <Response />
