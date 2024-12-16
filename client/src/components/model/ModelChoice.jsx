@@ -10,7 +10,7 @@ const ModelChoice = ({ models, setModels }) => {
       animate={{ opacity: 1 }}
     >
       <h1 className="font-semibold text-5xl mb-10">Choose an AI model</h1>
-      <div className="flex items-center justify center gap-4">
+      <div className="grid grid-cols-5 items-center justify-center gap-4">
         {models.map((model) => (
           <Model
             key={model.name}
@@ -24,12 +24,14 @@ const ModelChoice = ({ models, setModels }) => {
   );
 };
 
-export const ModelChoiceMini = ({ models, setModels, chatBegan }) => {
+export const ModelChoiceMini = ({ models, setModels, showSideBar, chatBegan }) => {
   return (
     <AnimatePresence>
       {chatBegan && (
-        <div
-        className="select-none absolute z-20 left-0"
+        <motion.div
+        initial={{right:'-9rem'}}
+        animate={showSideBar?{right:'2rem',transition: { duration: 0.4 }}:{right:'-9rem'}}
+        className="select-none absolute z-20 top-24"
       >
         <motion.div 
         variants={miniVariants}
@@ -46,7 +48,7 @@ export const ModelChoiceMini = ({ models, setModels, chatBegan }) => {
             />
           ))}
         </motion.div>
-      </div>
+      </motion.div>
       )}
     </AnimatePresence>
   );

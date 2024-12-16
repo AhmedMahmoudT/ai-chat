@@ -16,7 +16,7 @@ const App = () => {
         </div>
       </div>
       <SideBar showSideBar={showSideBar} setShowSideBar={setShowSideBar} />
-      <Main />
+      <Main showSideBar={showSideBar} />
     </div>
   );
 };

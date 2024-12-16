@@ -58,7 +58,7 @@ export const ModelMini = ({ model, models, setModels }) => {
       } w-14 h-14 hover:bg-indigo-100 text-neutral-400 hover:text-indigo-600 relative cursor-pointer`}
     >
       <img src={model.logo} className="w-14 h-full" />
-      <motion.p initial={{opacity:0, x:-10}} animate={hovered?{opacity:1, x:0}:{opacity:0, x:-10}} className={`absolute left-[70px] ${model.checked && "text-indigo-600 font-semibold"} `}>
+      <motion.p initial={{opacity:0, x:-10}} animate={hovered?{opacity:1, x:0}:{opacity:0, x:-10}} className={`absolute right-[70px] ${model.checked && "text-indigo-600 font-semibold"} `}>
         {model.name}
       </motion.p>
 
