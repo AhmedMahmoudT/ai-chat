@@ -1,10 +1,11 @@
 import { useState } from "react";
-import Input from "./Input";
-import Chat from "./Chat";
-import ModelChoice, { ModelChoiceMini } from "./ModelChoice";
+import Input from "./chat/Input";
+import Chat from "./chat/Chat";
+import ModelChoice, { ModelChoiceMini } from "./model/ModelChoice";
 import { AnimatePresence } from "motion/react";
 
-const Main = () => {
+// eslint-disable-next-line react/prop-types
+const Main = ({showSideBar}) => {
   const [chatBegan, setChatBegan] = useState(false);
   const [models, setModels] = useState([
     {
@@ -32,18 +33,22 @@ const Main = () => {
       logo: "/images/models/llama_vision.png",
       checked: false,
     },
+    {
+      name: "OpenAI 4",
+      logo: "/images/models/openai.png",
+      checked: false,
+    },
   ]);
   return (
-    <div className="w-[50%] h-[100%] m-auto flex flex-col items-center justify-center relative gap-4">
+    <div className="w-[80%] h-[100%] m-auto flex flex-col items-center justify-center relative gap-4">
       <AnimatePresence>
-        {!chatBegan ? (
+        {!chatBegan && (
           <ModelChoice models={models} setModels={setModels} />
-        ) : (
-          <ModelChoiceMini models={models} setModels={setModels} />
         )}
       </AnimatePresence>
 
-      <Chat chatBegan={chatBegan} />
+      <Chat chatBegan={chatBegan} models={models} setModels={setModels} />
+      <ModelChoiceMini showSideBar={showSideBar} models={models} setModels={setModels} chatBegan={chatBegan} />
       <Input
         models={models}
         chatBegan={chatBegan}

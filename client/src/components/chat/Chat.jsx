@@ -9,11 +9,11 @@ const Chat = ({ chatBegan }) => {
       initial={{ opacity: 0, height: "0px" }}
       animate={
         chatBegan
-          ? { opacity: 1, height: "660px" }
+          ? { opacity: 1, height: "80vh" }
           : { opacity: 0, height: "0px" }
       }
       transition={{ duration: 0.5 }}
-      className="w-full overflow-scroll flex flex-col gap-2 py-4"
+      className="w-[100%] px-[19%] overflow-scroll flex flex-col gap-2 pb-28 relative"
     >
       <Prompt />
       <Response />

@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { motion } from "motion/react";
+import { useState } from "react";
 
 const Model = ({ model, models, setModels }) => {
   const handleCheck = () => {
@@ -42,22 +44,31 @@ export const ModelMini = ({ model, models, setModels }) => {
     setModels([...models]);
   };
 
+  const [hovered, setHovered] = useState(false);
+
   return (
-    <div
+    <motion.div
       onClick={handleCheck}
-      className={`rounded-xl flex items-center justify-between pr-8 text-lg text-nowrap border-2 ${
+      whileHover={{ scale: 1.1 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      variants={childVariants}
+      className={`rounded-full flex items-center justify-between text-lg text-nowrap border-2 ${
         model.checked && "border-indigo-600"
-      } w-56 h-16 hover:bg-indigo-100 text-neutral-400 hover:text-indigo-600 relative cursor-pointer`}
+      } w-14 h-14 hover:bg-indigo-100 text-neutral-400 hover:text-indigo-600 relative cursor-pointer`}
     >
-      <img src={model.logo} className="w-14 h-w-14" />
-      <p className={`${model.checked && "text-indigo-600 font-semibold"}`}>
+      <img src={model.logo} className="w-14 h-full" />
+      <motion.p initial={{opacity:0, x:-10}} animate={hovered?{opacity:1, x:0}:{opacity:0, x:-10}} className={`absolute right-[70px] ${model.checked && "text-indigo-600 font-semibold"} `}>
         {model.name}
-      </p>
-      {model.checked && (
-        <div className="absolute rounded-full bg-indigo-600 w-4 h-4 top-2 right-2"></div>
-      )}
-    </div>
+      </motion.p>
+
+    </motion.div>
   );
+};
+
+const childVariants = {
+  hidden: { opacity: 0, scale:0 },
+  visible: { opacity: 1, scale:1 }
 };
 
 export default Model;
