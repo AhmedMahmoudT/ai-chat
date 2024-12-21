@@ -1,60 +1,29 @@
-import { useState } from "react";
 import Input from "./chat/Input";
 import Chat from "./chat/Chat";
 import ModelChoice, { ModelChoiceMini } from "./model/ModelChoice";
 import { AnimatePresence } from "motion/react";
+import { Route, Routes } from "react-router-dom";
 
-// eslint-disable-next-line react/prop-types
-const Main = ({showSideBar}) => {
-  const [chatBegan, setChatBegan] = useState(false);
-  const [models, setModels] = useState([
-    {
-      name: "Qwen",
-      logo: "/images/models/qwen.png",
-      checked: true,
-    },
-    {
-      name: "Gemma 2.2",
-      logo: "/images/models/gemma.png",
-      checked: false,
-    },
-    {
-      name: "Mistral",
-      logo: "/images/models/mistral.png",
-      checked: false,
-    },
-    {
-      name: "Llama 3.2",
-      logo: "/images/models/llama.png",
-      checked: false,
-    },
-    {
-      name: "Llama 3.2 Vision",
-      logo: "/images/models/llama_vision.png",
-      checked: false,
-    },
-    {
-      name: "OpenAI 4",
-      logo: "/images/models/openai.png",
-      checked: false,
-    },
-  ]);
+const Main = () => {
   return (
     <div className="w-[80%] h-[100%] m-auto flex flex-col items-center justify-center relative gap-4">
       <AnimatePresence>
-        {!chatBegan && (
-          <ModelChoice models={models} setModels={setModels} />
-        )}
+        <Routes>
+          <Route path="/" element={<ModelChoice />} />
+          <Route path="/:id" element={<ChatwModelChoice />} />
+        </Routes>
       </AnimatePresence>
-
-      <Chat chatBegan={chatBegan} models={models} setModels={setModels} />
-      <ModelChoiceMini showSideBar={showSideBar} models={models} setModels={setModels} chatBegan={chatBegan} />
-      <Input
-        models={models}
-        chatBegan={chatBegan}
-        setChatBegan={setChatBegan}
-      />
+      <Input />
     </div>
+  );
+};
+
+const ChatwModelChoice = () => {
+  return (
+    <>
+      <Chat />
+      <ModelChoiceMini />
+    </>
   );
 };
 

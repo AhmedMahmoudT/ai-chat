@@ -1,18 +1,33 @@
-/* eslint-disable react/prop-types */
 import { IoSend } from "react-icons/io5";
 import { IoIosAttach } from "react-icons/io";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import axios from "axios";
+import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/AppContext";
 
-const Input = ({ models, chatBegan, setChatBegan }) => {
+const Input = () => {
+  const { currentChat, models } = useContext(AppContext);
   const [inputValue, setInputValue] = useState("");
   const [blink, setBlink] = useState(false);
+  const [interactions, setInteractions] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/chats/${currentChat}`).then(res => {
+    const intr = res.data.interactions
+    setInteractions(intr)
+    })
+  },[currentChat])
+
   const textareaRef = useRef(null);
+
+
+  const navigate = useNavigate();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit();
+      handleSubmit(e);
     }
   };
 
@@ -21,11 +36,30 @@ const Input = ({ models, chatBegan, setChatBegan }) => {
     adjustTextareaHeight();
   };
 
-  const handleSubmit = () => {
-    !chatBegan && setChatBegan(true);
-    setInputValue("");
-    const textarea = textareaRef.current;
-    textarea.style.height = "32px";
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (currentChat!=='' && currentChat!==undefined) {
+      axios.put(`http://localhost:3000/chats/${currentChat}`, {
+        "interactions": [...interactions, { question: inputValue }],
+      })
+      .then(() => {
+        setInputValue("");
+        const textarea = textareaRef.current;
+        textarea.style.height = "32px";
+      });
+    } else {
+      axios
+        .post(`http://localhost:3000/chats`, {
+          id:v4(),
+          interactions: [{ question: inputValue }],
+        })
+        .then((res) => {
+          navigate(`/${res.data.id}`);
+          setInputValue("");
+          const textarea = textareaRef.current;
+          textarea.style.height = "32px";
+        });
+    }
   };
 
   const adjustTextareaHeight = () => {
@@ -50,11 +84,19 @@ const Input = ({ models, chatBegan, setChatBegan }) => {
       animate={
         blink
           ? {
-              border: ["4px solid #4f46e5", "4px solid #e0e7ff", "4px solid #4f46e5"],
+              border: [
+                "4px solid #4f46e5",
+                "4px solid #e0e7ff",
+                "4px solid #4f46e5",
+              ],
               transition: { repeat: Infinity, duration: 1 },
             }
           : {
-              border: ["2px solid #4f46e5", "2px solid #e0e7ff", "2px solid #4f46e5"],
+              border: [
+                "2px solid #4f46e5",
+                "2px solid #e0e7ff",
+                "2px solid #4f46e5",
+              ],
               transition: { repeat: Infinity, duration: 1 },
             }
       }

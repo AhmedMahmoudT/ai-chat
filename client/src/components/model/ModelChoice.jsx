@@ -1,8 +1,13 @@
-/* eslint-disable react/prop-types */
 import { AnimatePresence, motion } from "motion/react";
 import Model, { ModelMini } from "./Model";
+import { useContext, useEffect } from "react";
+import { AppContext } from "../../context/AppContext";
 
-const ModelChoice = ({ models, setModels }) => {
+const ModelChoice = () => {
+  const { setCurrentChat, models } = useContext(AppContext);
+  useEffect(() => {
+    setCurrentChat('');
+  }, [setCurrentChat]);
   return (
     <motion.div
       className="select-none"
@@ -15,8 +20,6 @@ const ModelChoice = ({ models, setModels }) => {
           <Model
             key={model.name}
             model={model}
-            models={models}
-            setModels={setModels}
           />
         ))}
       </div>
@@ -24,43 +27,50 @@ const ModelChoice = ({ models, setModels }) => {
   );
 };
 
-export const ModelChoiceMini = ({ models, setModels, showSideBar, chatBegan }) => {
+export const ModelChoiceMini = () => {
+  const { showSideBar, models, setModels } = useContext(AppContext);
   return (
     <AnimatePresence>
-      {chatBegan && (
+      
         <motion.div
-        initial={{right:'-9rem'}}
-        animate={showSideBar?{right:'2rem',transition: { duration: 0.4 }}:{right:'-9rem'}}
-        className="select-none absolute z-20 top-24"
-      >
-        <motion.div 
-        variants={miniVariants}
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-        className="flex flex-col items-center justify center gap-4">
-          {models.map((model) => (
-            <ModelMini
-              key={model.name}
-              model={model}
-              models={models}
-              setModels={setModels}
-            />
-          ))}
+          initial={{ right: "-9rem" }}
+          animate={
+            showSideBar
+              ? { right: "2rem", transition: { duration: 0.4 } }
+              : { right: "-9rem" }
+          }
+          className="select-none absolute z-20 top-24"
+        >
+          <motion.div
+            variants={miniVariants}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            className="flex flex-col items-center justify center gap-4"
+          >
+            {models.map((model) => (
+              <ModelMini
+                key={model.name}
+                model={model}
+                models={models}
+                setModels={setModels}
+              />
+            ))}
+          </motion.div>
         </motion.div>
-      </motion.div>
-      )}
+      )
     </AnimatePresence>
   );
 };
 
 const miniVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1,
+  visible: {
+    opacity: 1,
     transition: {
       staggerChildren: 0.2,
-    }
-   },
+    },
+  },
 };
 
 export default ModelChoice;
