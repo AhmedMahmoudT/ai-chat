@@ -1,9 +1,9 @@
 import { IoSend } from "react-icons/io5";
 import { IoIosAttach } from "react-icons/io";
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useRef, useContext } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import axios from "axios";
-import { v4 } from "uuid";
+import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 
@@ -11,19 +11,15 @@ const Input = () => {
   const { currentChat, models } = useContext(AppContext);
   const [inputValue, setInputValue] = useState("");
   const [blink, setBlink] = useState(false);
-  const [interactions, setInteractions] = useState([]);
-
-  useEffect(() => {
-    axios.get(`http://localhost:3000/chats/${currentChat}`).then(res => {
-    const intr = res.data.interactions
-    setInteractions(intr)
-    })
-  },[currentChat])
 
   const textareaRef = useRef(null);
-
-
   const navigate = useNavigate();
+
+  const adjustTextareaHeight = () => {
+    const textarea = textareaRef.current;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -36,40 +32,51 @@ const Input = () => {
     adjustTextareaHeight();
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (currentChat!=='' && currentChat!==undefined) {
-      axios.put(`http://localhost:3000/chats/${currentChat}`, {
-        "interactions": [...interactions, { question: inputValue }],
-      })
-      .then(() => {
-        setInputValue("");
-        const textarea = textareaRef.current;
-        textarea.style.height = "32px";
-      });
-    } else {
-      axios
-        .post(`http://localhost:3000/chats`, {
-          id:v4(),
-          interactions: [{ question: inputValue }],
-        })
-        .then((res) => {
-          navigate(`/${res.data.id}`);
-          setInputValue("");
-          const textarea = textareaRef.current;
-          textarea.style.height = "32px";
-        });
-    }
-  };
+    try {
+      const newInteraction = { question: inputValue, answer: null };
+      let updatedInteractions = [];
+      const newId = uuidv4();
 
-  const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = "32px";
-      textarea.style.height = `${Math.min(
-        Math.max(textarea.scrollHeight, 32),
-        200
-      )}px`;
+      if (currentChat) {
+        const res = await axios.get(`http://localhost:3000/chats/${currentChat}`);
+        updatedInteractions = [...res.data.interactions, newInteraction];
+        await axios.put(`http://localhost:3000/chats/${currentChat}`, {
+          interactions: updatedInteractions,
+        });
+      } else {
+        updatedInteractions = [newInteraction];
+        const res = await axios.post(`http://localhost:3000/chats`, {
+          id: newId,
+          interactions: updatedInteractions,
+        });
+        navigate(`/${res.data.id}`);
+      }
+
+      setInputValue('');
+      const textarea = textareaRef.current;
+      textarea.style.height = '32px';
+
+      // Simulate AI thinking
+      setTimeout(async () => {
+        const aiResponse = "# Huh?\nI don't understand, can you **repeat** that please?";
+        updatedInteractions[updatedInteractions.length - 1].answer = aiResponse;
+
+        if (currentChat) {
+          await axios.put(`http://localhost:3000/chats/${currentChat}`, {
+            interactions: updatedInteractions,
+          });
+        } else {
+          await axios.put(`http://localhost:3000/chats/${newId}`, {
+            interactions: updatedInteractions,
+          });
+        }
+
+      }, 2000); // Simulate a 2-second delay for AI response
+
+    } catch (error) {
+      console.error('Error submitting the chat:', error);
     }
   };
 

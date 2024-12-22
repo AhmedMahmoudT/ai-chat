@@ -23,7 +23,7 @@ const Chat = () => {
     };
 
     fetchInteractions();
-    const interval = setInterval(fetchInteractions, 5000);
+    const interval = setInterval(fetchInteractions, 500);
 
     return () => clearInterval(interval);
   }, [id, setCurrentChat]);
