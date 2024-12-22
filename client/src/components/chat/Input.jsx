@@ -60,8 +60,11 @@ const Input = () => {
 
       // Simulate AI thinking
       setTimeout(async () => {
-        const aiResponse = "# Huh?\nI don't understand, can you **repeat** that please?";
-        updatedInteractions[updatedInteractions.length - 1].answer = aiResponse;
+        const responseString = "model='llama3.2' created_at='2024-12-22T21:08:35.575415Z' done=True done_reason='stop' total_duration=12314368542 load_duration=33230292 prompt_eval_count=36 prompt_eval_duration=1149000000 eval_count=373 eval_duration=11128000000 message=Message(role='assistant', content='The main benefits of using Artificial Intelligence (AI) in healthcare include:\\n\\n1. *Improved Diagnosis: AI algorithms can analyze large amounts of medical data, including images and patient histories, to help doctors diagnose diseases more accurately and quickly.\\n2. **Personalized Medicine: AI can help tailor treatment plans to individual patients based on their genetic profiles, medical history, and lifestyle factors.\\n3. **Enhanced Patient Engagement: AI-powered chatbots and virtual assistants can provide patients with personalized health information, reminders, and support, improving their overall experience.\\n4. **Streamlined Clinical Workflows: AI can automate routine administrative tasks, such as data entry and reporting, freeing up healthcare professionals to focus on more complex and high-value tasks.\\n5. **Predictive Analytics: AI algorithms can analyze large datasets to predict patient outcomes, identify high-risk patients, and prevent readmissions.\\n6. **Medical Imaging Analysis: AI can help analyze medical images, such as X-rays and CT scans, to detect abnormalities and diagnose conditions like cancer more accurately.\\n7. **Virtual Nursing Assistants: AI-powered virtual nursing assistants can provide 24/7 support to patients with chronic conditions, helping to monitor their health and prevent complications.\\n8. **Clinical Trial Optimization: AI can help optimize clinical trial designs, patient selection, and data analysis, leading to faster and more effective development of new treatments.\\n9. **Population Health Management: AI can analyze large datasets to identify population trends and patterns, enabling healthcare organizations to develop targeted interventions and improve health outcomes.\\n10. **Cost Savings*: AI can help reduce healthcare costs by streamlining clinical workflows, reducing unnecessary tests and procedures, and improving patient engagement and adherence.\\n\\nOverall, the integration of AI in healthcare has the potential to revolutionize the way we diagnose, treat, and prevent diseases, leading to improved patient outcomes and more efficient healthcare systems.', images=None, tool_calls=None)"
+      const contentMatch = responseString.match(/content='([^']*)'/);
+      if (contentMatch && contentMatch[1]) {
+        const content = contentMatch[1].replace(/\\n/g, '\n');
+        updatedInteractions[updatedInteractions.length - 1].answer = content;
 
         if (currentChat) {
           await axios.put(`http://localhost:3000/chats/${currentChat}`, {
@@ -72,6 +75,9 @@ const Input = () => {
             interactions: updatedInteractions,
           });
         }
+      } else {
+        console.error('Content not found');
+      }
 
       }, 2000); // Simulate a 2-second delay for AI response
 

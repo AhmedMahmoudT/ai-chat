@@ -14,7 +14,7 @@ const App = () => {
       name: "Qwen",
       logo: "/images/models/qwen.png",
       checked: true,
-    },
+    },  
     {
       name: "Gemma 2.2",
       logo: "/images/models/gemma.png",
