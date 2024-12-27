@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
+import typography from '@tailwindcss/typography'
 export default {
   content: [
     "./src/**/*.{js,jsx}",
@@ -8,7 +9,7 @@ export default {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    typography,
   ],
 }
 
