@@ -34,7 +34,7 @@ const Input = () => {
 
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
-    textarea.style.height = "24px";
+    textarea.style.height = "28px";
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
@@ -78,7 +78,7 @@ const Input = () => {
       setInputValue("");
       const textarea = textareaRef.current;
       const model = models.find((m) => m.checked);
-      textarea.style.height = "24px";
+      textarea.style.height = "28px";
 
       await axios.put("http://localhost:3000/input", {
         value: inputValue,
@@ -167,7 +167,7 @@ const Input = () => {
         className="w-full h-8 text-black bg-transparent focus:outline-none resize-none placeholder:text-indigo-400"
         placeholder="Ask me anything..."
         style={{
-          minHeight: "24px",
+          minHeight: "28px",
           maxHeight: "200px",
           overflowY: "auto",
         }}
