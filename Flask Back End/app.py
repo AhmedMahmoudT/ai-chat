@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 import json
 import ollama
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/generate', methods=['POST'])
 def generate():
@@ -15,13 +18,14 @@ def generate():
         if not data or 'input' not in data:
             return jsonify({"error": "Missing 'input' field in the request."}), 400
 
-        user_input = data['input']
+        user_input = data['input']['value']
+        model_name = data['input']['model']
 
         # Generate response from the Ollama model
         model_response = ollama.chat(
-            model='llama3.2',
+            model=model_name,
             messages=[{
-                'prompt':'answear',
+                'prompt':'answer',
                 'role': 'user',
                 'content': user_input
             }]
