@@ -6,6 +6,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
+import { FaXmark } from "react-icons/fa6";
 
 const Input = () => {
   const { currentChat, models } = useContext(AppContext);
@@ -15,9 +16,25 @@ const Input = () => {
   const textareaRef = useRef(null);
   const navigate = useNavigate();
 
+  const imageInputRef = useRef(null);
+  const [image, setImage] = useState("");
+
+  const handleButtonClick = () => {
+    imageInputRef.current.click();
+  };
+
+  const handleRemoveImage = () => {
+    setImage("");
+    imageInputRef.current.value = null;
+  };
+
+  const handleImageChange = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
+  };
+
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
-    textarea.style.height = "auto";
+    textarea.style.height = "24px";
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
@@ -61,7 +78,7 @@ const Input = () => {
       setInputValue("");
       const textarea = textareaRef.current;
       const model = models.find((m) => m.checked);
-      textarea.style.height = "32px";
+      textarea.style.height = "24px";
 
       await axios.put("http://localhost:3000/input", {
         value: inputValue,
@@ -73,23 +90,13 @@ const Input = () => {
       });
 
       let responseString = aiResponse.data.response;
-      console.log("Raw AI Response:", responseString);
-
       const match = responseString.match(/content=([`"'"])((?:[^\\]|\\.)*?)\1/);
 
       if (match) {
         let content = match[2];
-        console.log(content);
-
         let cleanContent = content.replace(/\\n/g, "\n");
-
-        // Step 2: Unescape any escaped quotes (e.g., `\'`, `\"`, `\``) inside the content
         cleanContent = cleanContent.replace(/\\(['"`])/g, "$1");
-
-        // Step 3: Trim any leading or trailing whitespace from the content
         cleanContent = cleanContent.trim();
-
-        console.log(cleanContent);
 
         updatedInteractions[updatedInteractions.length - 1].answer =
           cleanContent;
@@ -139,6 +146,17 @@ const Input = () => {
             }
       }
     >
+      {image && (
+        <div className="flex items-center w-full justify-end relative">
+          <button
+            onClick={handleRemoveImage}
+            className="absolute text-base flex items-center justify-center text-indigo-600 top-0 right-0 rounded-full w-6 h-6 border-2 border-indigo-600 bg-indigo-100"
+          >
+            <FaXmark />
+          </button>
+          <img src={image} className="w-[32%] m-2 rounded-lg" />
+        </div>
+      )}
       <textarea
         ref={textareaRef}
         value={inputValue}
@@ -149,7 +167,7 @@ const Input = () => {
         className="w-full h-8 text-black bg-transparent focus:outline-none resize-none placeholder:text-indigo-400"
         placeholder="Ask me anything..."
         style={{
-          minHeight: "32px",
+          minHeight: "24px",
           maxHeight: "200px",
           overflowY: "auto",
         }}
@@ -158,11 +176,12 @@ const Input = () => {
         <div>
           <AnimatePresence>
             {models[4].checked ? (
-              <motion.button
+              <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: [1.3, 1] }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="relative"
+                onClick={handleButtonClick}
+                className="relative cursor-pointer"
               >
                 <motion.img
                   initial={{ scale: 0 }}
@@ -172,7 +191,14 @@ const Input = () => {
                   className="z-10 absolute"
                 />
                 <IoIosAttach />
-              </motion.button>
+                <input
+                  key={image}
+                  ref={imageInputRef}
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={handleImageChange}
+                />
+              </motion.div>
             ) : (
               <button disabled></button>
             )}

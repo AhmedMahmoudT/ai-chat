@@ -20,15 +20,17 @@ def generate():
 
         user_input = data['input']['value']
         model_name = data['input']['model']
+        messages = {
+            'prompt':'answer',
+            'role': 'user',
+            'content': user_input,
+            'images':['image.jpg']
+        }
 
         # Generate response from the Ollama model
         model_response = ollama.chat(
             model=model_name,
-            messages=[{
-                'prompt':'answer',
-                'role': 'user',
-                'content': user_input
-            }]
+            messages=[messages]
         )
 
         # Convert response to text if necessary
