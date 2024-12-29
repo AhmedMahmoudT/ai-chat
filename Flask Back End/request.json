@@ -1,3 +1,7 @@
 {
-    "input": "What are the main benefits of using AI in healthcare?"
+  "input": {
+    "value": "Hello",
+    "model": "llama3.2"
+  },
+  "chats": []
 }

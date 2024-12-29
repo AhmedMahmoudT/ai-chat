@@ -11,6 +11,12 @@ importers:
       axios:
         specifier: ^1.7.9
         version: 1.7.9
+      dom-parser-react:
+        specifier: ^0.3.0
+        version: 0.3.0(@types/react@18.3.16)(react@18.3.1)
+      marked:
+        specifier: ^15.0.4
+        version: 15.0.4
       motion:
         specifier: ^11.13.5
         version: 11.13.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -786,6 +792,18 @@ packages:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
     engines: {node: '>=0.10.0'}
 
+  dom-parser-react@0.3.0:
+    resolution: {integrity: sha512-VVZ/+v6fLQK73TN5tkfemQ2YYp8rJSTDBmMXvuKxd3lzY28wHSjFjwP6xirmquYWcFfRG69M9injV1jcaBWhJg==}
+    peerDependencies:
+      '@types/react': '>= 16'
+      jsdom: ^21.0.0
+      react: '>= 16'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      jsdom:
+        optional: true
+
   dunder-proto@1.0.0:
     resolution: {integrity: sha512-9+Sj30DIu+4KvHqMfLUGLFYL2PkURSYMVXJyXe92nFRvlYq5hBjLEhblKB+vkd/WVlUYMWigiY07T91Fkk0+4A==}
     engines: {node: '>= 0.4'}
@@ -1284,6 +1302,11 @@ packages:
 
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
+
+  marked@15.0.4:
+    resolution: {integrity: sha512-TCHvDqmb3ZJ4PWG7VEGVgtefA5/euFmsIhxtD0XsBxI39gUSKL81mIRFdt0AiNQozUahd4ke98ZdirExd/vSEw==}
+    engines: {node: '>= 18'}
+    hasBin: true
 
   mdast-util-from-markdown@2.0.2:
     resolution: {integrity: sha512-uZhTV/8NBuw0WHkPTrCqDOl0zVe1BIng5ZtHoDk49ME1qqcjYmmLmOf0gELgcRMxN4w2iuIeVso5/6QymSrgmA==}
@@ -2560,6 +2583,12 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
+  dom-parser-react@0.3.0(@types/react@18.3.16)(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+    optionalDependencies:
+      '@types/react': 18.3.16
+
   dunder-proto@1.0.0:
     dependencies:
       call-bind-apply-helpers: 1.0.1
@@ -3172,6 +3201,8 @@ snapshots:
       js-tokens: 4.0.0
 
   lru-cache@10.4.3: {}
+
+  marked@15.0.4: {}
 
   mdast-util-from-markdown@2.0.2:
     dependencies:
