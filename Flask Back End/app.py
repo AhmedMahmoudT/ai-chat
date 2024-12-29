@@ -24,8 +24,15 @@ def generate():
             'prompt':'answer',
             'role': 'user',
             'content': user_input,
-            'images':['image.jpg']
         }
+
+        if model_name == 'llama3.2-vision':
+            messages = {
+                'prompt':'answer',
+                'role': 'user',
+                'content': user_input,
+                'images':['image.jpg']
+            }
 
         # Generate response from the Ollama model
         model_response = ollama.chat(
