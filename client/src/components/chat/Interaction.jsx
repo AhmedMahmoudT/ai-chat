@@ -1,16 +1,19 @@
 /* eslint-disable react/prop-types */
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
+import DOMParserReact from 'dom-parser-react'
+import {marked} from 'marked'
 
 const Response = ({res}) => {
-  const thinking = `
+  const html = res&&marked.parse(res)
+  const thinking = marked.parse(`
   **Thinking...**
-  `
+  `)
 
   return (
     <div className="w-full flex items-center">
-      <ReactMarkdown className="p-4 text-wrap max-w-[100%] prose">
-        {res?res:thinking}
-      </ReactMarkdown>
+      <div className="p-4 text-wrap max-w-[100%] prose">
+        <DOMParserReact source={res?html:thinking} />
+      </div>
     </div>
   );
 };
