@@ -11,7 +11,7 @@ const App = () => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [models, setModels] = useState([
     {
-      id:"qwen",
+      id:"qwen2.5",
       name: "Qwen",
       logo: "/images/models/qwen.png",
       checked: true,
