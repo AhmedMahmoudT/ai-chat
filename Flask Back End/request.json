@@ -1,7 +1,0 @@
-{
-  "input": {
-    "value": "Hello",
-    "model": "gemma2:2b"
-  },
-  "chats": []
-}

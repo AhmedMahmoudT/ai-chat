@@ -1,0 +1,17 @@
+{
+  "input": {
+    "value": "Hallo",
+    "model": "qwen2.5"
+  },
+  "chats": [
+    {
+      "interactions": [
+        {
+          "question": "Hallo",
+          "answer": "Hallo! Wie kann ich Ihnen heute helfen?"
+        }
+      ],
+      "id": "ca80f5c8-182d-4ad7-a1bb-c00840fa4d4d"
+    }
+  ]
+}
