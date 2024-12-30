@@ -1,7 +1,7 @@
 {
   "input": {
-    "value": "Test",
-    "model": "mistral"
+    "value": "Hello",
+    "model": "llama3.2-vision"
   },
   "chats": []
 }

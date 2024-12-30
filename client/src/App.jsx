@@ -12,7 +12,7 @@ const App = () => {
   const [models, setModels] = useState([
     {
       id:"qwen2.5",
-      name: "Qwen",
+      name: "Qwen 2.5",
       logo: "/images/models/qwen.png",
       checked: true,
     },  

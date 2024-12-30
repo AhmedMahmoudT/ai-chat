@@ -42,7 +42,7 @@ const Chat = ({ id, title, link, fetchChats }) => {
       >
         <form className="flex items-center justify-between w-[90%]">
           {isDisabled ? (
-            <p>{currentTitle}</p>
+            <p className="w-[100%] text-nowrap overflow-hidden text-ellipsis select-none bg-transparent focus:outline-none">{currentTitle}</p>
           ) : (
             <input
               value={currentTitle}
