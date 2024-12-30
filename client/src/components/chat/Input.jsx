@@ -125,7 +125,7 @@ const Input = () => {
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className="w-[62.5%] py-2 h-max bg-indigo-100 rounded-lg px-4 flex flex-col items-center justify-center gap-2 absolute bottom-12"
+      className="xl:w-[944px] lg:w-[752px] w-[560px] py-2 h-max bg-indigo-100 rounded-lg px-4 flex flex-col items-center justify-center gap-2 absolute bottom-12"
       initial={{
         outline: [
           "3px solid #4f46e5",

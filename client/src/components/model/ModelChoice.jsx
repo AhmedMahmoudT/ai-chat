@@ -10,12 +10,12 @@ const ModelChoice = () => {
   }, [setCurrentChat]);
   return (
     <motion.div
-      className="select-none  absolute top-16"
+      className="select-none absolute top-32"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
       <h1 className="font-semibold text-5xl mb-10">Choose an AI model</h1>
-      <div className="grid grid-cols-4 items-center justify-center gap-4">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-4 sm:grid-cols-3 grid-cols-2 items-center justify-center gap-4">
         {models.map((model) => (
           <Model
             key={model.name}
