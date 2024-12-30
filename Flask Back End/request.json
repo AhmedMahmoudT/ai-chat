@@ -1,7 +1,7 @@
 {
   "input": {
-    "value": "Hello",
-    "model": "llama3.2-vision"
+    "value": "name ten things i could cook using eggs",
+    "model": "gemma2:2b"
   },
   "chats": []
 }

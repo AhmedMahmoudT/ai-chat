@@ -11,7 +11,7 @@ const Response = ({res}) => {
 
   return (
     <div className="w-full flex items-center">
-      <div className="p-4 text-wrap max-w-[100%] prose">
+      <div className="p-4 py-10 text-wrap max-w-[100%] prose">
         {res?<DOMParserReact source={html} />:
         <div className='font-bold flex items-center justify-center'>
           <motion.div variants={child} initial="default" animate="animate">

@@ -17,8 +17,8 @@ const App = () => {
       checked: true,
     },  
     {
-      id:"gemma2",
-      name: "Gemma 2.2",
+      id:"gemma2:2b",
+      name: "Gemma 2 2b",
       logo: "/images/models/gemma.png",
       checked: false,
     },
