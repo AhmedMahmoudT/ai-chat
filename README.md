@@ -8,6 +8,7 @@ This repository contains a chatbot web application built with **React** for the 
 - **Flask Backend**: Handles requests and integrates with Ollama for generating AI responses.
 - **Ollama API**: Utilized for chatting with different AI models.
 - **JSON Configuration**: Manages request and response testing.
+![](https://utfs.io/f/VjzBOjvt3gYi4qHhxd5Gb05RX2lAZ6ap3C9gYOFejTQVnsuL)
 
 ## Project Structure
 
@@ -23,6 +24,7 @@ The Flask server (`app.py`) provides an endpoint to generate responses based on 
 React components for the interface include:
 - **ModelChoice.jsx**: Displays a grid to select an AI model.
 - **Model.jsx**: Represents an individual AI model card with interactivity.
+  ![](https://utfs.io/f/VjzBOjvt3gYiBxDMWeGtRE0fLH3YcpqjJvekhwGrXWMO1I8o)
 
 ### Data Configuration
 
