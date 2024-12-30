@@ -31,10 +31,10 @@ const SideBar = () => {
       initial={{ opacity: 0, width: "0%" }}
       animate={
         showSideBar
-          ? { opacity: 1, width: "20%", transition: { duration: 0.5 } }
+          ? { opacity: 1, width: "24%", transition: { duration: 0.5 } }
           : { opacity: 0, width: "0%" }
       }
-      className="w-[20%] h-[90%] mx-4 border bg-indigo-100 rounded-lg z-10"
+      className="w-[24%] h-[90%] mx-4 border bg-indigo-100 rounded-lg z-10"
     >
       <div className="flex items-center justify-between w-full p-4 text-indigo-600 text-4xl">
         <PiSidebarSimpleDuotone
@@ -44,7 +44,7 @@ const SideBar = () => {
         {showSideBar&&<Link to="/"><HiMiniPencilSquare className="text-3xl" /></Link>}
       </div>
       {chats?.map((chat) => (
-        <Chat key={chat.id} id={chat.id} title={'test'} link={`/${chat.id}`} fetchChats={fetchChats} />
+        <Chat key={chat.id} id={chat.id} title={chat.title||chat.id} link={`/${chat.id}`} fetchChats={fetchChats} />
       ))}
     </motion.div>
   );

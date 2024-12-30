@@ -11,31 +11,37 @@ const App = () => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [models, setModels] = useState([
     {
-      name: "Qwen",
+      id:"qwen2.5",
+      name: "Qwen 2.5",
       logo: "/images/models/qwen.png",
       checked: true,
     },  
     {
-      name: "Gemma 2.2",
+      id:"gemma2:2b",
+      name: "Gemma 2 2b",
       logo: "/images/models/gemma.png",
       checked: false,
     },
     {
+      id:"mistral",
       name: "Mistral",
       logo: "/images/models/mistral.png",
       checked: false,
     },
     {
+      id:"llama3.2",
       name: "Llama 3.2",
       logo: "/images/models/llama.png",
       checked: false,
     },
     {
+      id:"llama3.2-vision",
       name: "Llama 3.2 Vision",
       logo: "/images/models/llama_vision.png",
       checked: false,
     },
     {
+      id:"gpt4",
       name: "OpenAI 4",
       logo: "/images/models/openai.png",
       checked: false,

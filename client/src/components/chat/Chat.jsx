@@ -7,7 +7,7 @@ import { AppContext } from "../../context/AppContext";
 
 const Chat = () => {
   const [interactions, setInteractions] = useState()
-  const { setCurrentChat } = useContext(AppContext);
+  const { setCurrentChat, showSideBar } = useContext(AppContext);
 
   const { id } = useParams();
   useEffect(() => {
@@ -33,7 +33,7 @@ const Chat = () => {
       initial={{ opacity: 0, height: "0px" }}
       animate={{ opacity: 1, height: "80vh" }}
       transition={{ duration: 0.5 }}
-      className="w-[100%] px-[19%] overflow-scroll flex flex-col gap-2 pb-28 relative"
+      className={`xl:w-[944px] lg:w-[752px] w-[560px] ${showSideBar&&'px-[5%]'} overflow-scroll flex flex-col gap-2 pb-28 relative`}
     >
       {interactions?.map((interaction, index) => <Interaction key={interaction.id||index} pr={interaction.question} res={interaction.answer} />)}
     </motion.div>
