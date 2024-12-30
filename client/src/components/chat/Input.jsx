@@ -11,6 +11,7 @@ import { FaXmark } from "react-icons/fa6";
 const Input = () => {
   const { currentChat, models } = useContext(AppContext);
   const [inputValue, setInputValue] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
   const [blink, setBlink] = useState(false);
 
   const textareaRef = useRef(null);
@@ -51,6 +52,7 @@ const Input = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsDisabled(true);
     try {
       const newInteraction = { question: inputValue, answer: null };
       let updatedInteractions = [];
@@ -110,34 +112,40 @@ const Input = () => {
             interactions: updatedInteractions,
           });
         }
+        setIsDisabled(false);
       } else {
         console.error("Content not found in AI response", responseString);
       }
     } catch (error) {
       console.error("Error submitting the chat:", error);
+      setIsDisabled(false);
     }
   };
 
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className="w-[62.5%] py-2 h-max bg-indigo-100 rounded-lg px-4 flex flex-col items-center justify-center gap-2 border-2 absolute bottom-12"
+      className="w-[62.5%] py-2 h-max bg-indigo-100 rounded-lg px-4 flex flex-col items-center justify-center gap-2 absolute bottom-12"
       initial={{
-        border: ["2px solid #4f46e5", "2px solid #e0e7ff", "2px solid #4f46e5"],
+        outline: [
+          "3px solid #4f46e5",
+          "3px solid #e0e7ff",
+          "3px solid #4f46e5",
+        ],
         transition: { repeat: Infinity, duration: 1 },
       }}
       animate={
         blink
           ? {
-              border: [
-                "4px solid #4f46e5",
-                "4px solid #e0e7ff",
-                "4px solid #4f46e5",
+              outline: [
+                "3px solid #4f46e5",
+                "3px solid #e0e7ff",
+                "3px solid #4f46e5",
               ],
               transition: { repeat: Infinity, duration: 1 },
             }
           : {
-              border: [
+              outline: [
                 "2px solid #4f46e5",
                 "2px solid #e0e7ff",
                 "2px solid #4f46e5",
@@ -160,6 +168,7 @@ const Input = () => {
       <textarea
         ref={textareaRef}
         value={inputValue}
+        disabled={isDisabled}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onFocus={() => setBlink(true)}

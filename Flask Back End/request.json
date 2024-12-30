@@ -1,6 +1,6 @@
 {
   "input": {
-    "value": "name ten things i could cook using eggs",
+    "value": "Hello",
     "model": "gemma2:2b"
   },
   "chats": []
